@@ -1,7 +1,7 @@
 /*
 Ingredient.java
  
-Created by ______________
+Created by Steven
  
 Represents a single ingredient used in a menu item.
 This is the innermost object in the program:
