@@ -1,6 +1,6 @@
 /*
 ======================================================
-Group Members:
+Group Members: Eduardo, Mitchelle, Steven
 
 
 ======================================================
@@ -20,7 +20,7 @@ public class Main {
 
         try {
 
-            File file = new File("restaurants.csv");
+            File file = new File("Restaurants.csv");
 
             Scanner input = new Scanner(file);
 
@@ -30,6 +30,10 @@ public class Main {
             while (input.hasNextLine()) {
 
                 String line = input.nextLine();
+                // Skip blank lines between restaurant groups
+                if (line.trim().isEmpty()) {
+                continue;
+                }
 
                 // Split CSV row
                 String[] parts = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -186,22 +190,10 @@ public class Main {
             }
         }
 
-        /*
-        ======================================================
-        GROUP WORK SECTION
-        ======================================================
-
-        Complete the following algorithms together:
-
-        1. Average menu item price for each restaurant
-        2. Highest-priced menu item for each restaurant
-        3. Lowest-priced menu item for each restaurant
-        4. Average calories for each restaurant
-
-        Each algorithm must be written in
-        its own method.
-
-        */
+        averageMenuPrice(restaurants);
+        highestPricedItem(restaurants);
+        lowestPricedItem(restaurants);
+        averageCalories(restaurants);
     }
 
     /*
@@ -227,5 +219,140 @@ public class Main {
         }
 
         return null;
+    }
+    /*
+    ==================================================
+    ALGORITHM 1 - Completed by the group
+    Average menu item price for each restaurant
+    ==================================================
+    */
+    public static void averageMenuPrice(ArrayList<Restaurant> restaurants) {
+
+        System.out.println();
+        System.out.println("=== AVERAGE MENU ITEM PRICE ===");
+
+        for (int i = 0; i < restaurants.size(); i++) {
+
+            Restaurant restaurant = restaurants.get(i);
+            ArrayList<MenuItem> menuItems = restaurant.getMenuItems();
+
+            if (menuItems.size() == 0) {
+                continue;
+            }
+
+            double totalPrice = 0.0;
+
+            for (int j = 0; j < menuItems.size(); j++) {
+                totalPrice = totalPrice + menuItems.get(j).getPrice();
+            }
+
+            double averagePrice = totalPrice / menuItems.size();
+
+            System.out.println(restaurant.getName() + ": $"
+                    + String.format("%.2f", averagePrice));
+        }
+    }
+
+    /*
+    ==================================================
+    ALGORITHM 2 - Completed by the group
+    Highest-priced menu item for each restaurant
+    ==================================================
+    */
+    public static void highestPricedItem(ArrayList<Restaurant> restaurants) {
+
+        System.out.println();
+        System.out.println("=== HIGHEST-PRICED MENU ITEM ===");
+
+        for (int i = 0; i < restaurants.size(); i++) {
+
+            Restaurant restaurant = restaurants.get(i);
+            ArrayList<MenuItem> menuItems = restaurant.getMenuItems();
+
+            if (menuItems.size() == 0) {
+                continue;
+            }
+
+            MenuItem highestItem = menuItems.get(0);
+
+            for (int j = 1; j < menuItems.size(); j++) {
+
+                if (menuItems.get(j).getPrice() > highestItem.getPrice()) {
+                    highestItem = menuItems.get(j);
+                }
+            }
+
+            System.out.println(restaurant.getName() + ": "
+                    + highestItem.getName() + " - $"
+                    + String.format("%.2f", highestItem.getPrice()));
+        }
+    }
+
+    /*
+    ==================================================
+    ALGORITHM 3 - Completed by the group
+    Lowest-priced menu item for each restaurant
+    ==================================================
+    */
+    public static void lowestPricedItem(ArrayList<Restaurant> restaurants) {
+
+        System.out.println();
+        System.out.println("=== LOWEST-PRICED MENU ITEM ===");
+
+        for (int i = 0; i < restaurants.size(); i++) {
+
+            Restaurant restaurant = restaurants.get(i);
+            ArrayList<MenuItem> menuItems = restaurant.getMenuItems();
+
+            if (menuItems.size() == 0) {
+                continue;
+            }
+
+            MenuItem lowestItem = menuItems.get(0);
+
+            for (int j = 1; j < menuItems.size(); j++) {
+
+                if (menuItems.get(j).getPrice() < lowestItem.getPrice()) {
+                    lowestItem = menuItems.get(j);
+                }
+            }
+
+            System.out.println(restaurant.getName() + ": "
+                    + lowestItem.getName() + " - $"
+                    + String.format("%.2f", lowestItem.getPrice()));
+        }
+    }
+
+    /*
+    ==================================================
+    ALGORITHM 4 (CHALLENGE) - Completed by the group
+    Average calories of menu items for each restaurant
+    ==================================================
+    */
+    public static void averageCalories(ArrayList<Restaurant> restaurants) {
+
+        System.out.println();
+        System.out.println("=== AVERAGE CALORIES PER MENU ITEM ===");
+
+        for (int i = 0; i < restaurants.size(); i++) {
+
+            Restaurant restaurant = restaurants.get(i);
+            ArrayList<MenuItem> menuItems = restaurant.getMenuItems();
+
+            if (menuItems.size() == 0) {
+                continue;
+            }
+
+            int totalCalories = 0;
+
+            for (int j = 0; j < menuItems.size(); j++) {
+                totalCalories = totalCalories + menuItems.get(j).getTotalCalories();
+            }
+
+            double average = (double) totalCalories / menuItems.size();
+
+            System.out.println(restaurant.getName() + ": "
+                    + String.format("%.1f", average) + " calories");
+        }
     }
 }
