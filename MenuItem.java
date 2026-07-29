@@ -1,7 +1,7 @@
 /*
 MenuItem.java
  
-Created by Mitchelle
+Created by Michelle
  
 Represents one item on a restaurant's menu.
 Each MenuItem contains many Ingredient objects stored in an ArrayList.
