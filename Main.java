@@ -1,6 +1,6 @@
 /*
 ======================================================
-Group Members: Eduardo, Mitchelle, Steven
+Group Members: Eduardo, Michelle, Steven
 
 
 ======================================================
